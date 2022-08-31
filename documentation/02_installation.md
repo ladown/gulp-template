@@ -28,7 +28,7 @@ npm start
 yarn start
 ```
 
-2. Prodocution mode
+2. Production mode
 
 ```sh
 npm build

@@ -1,11 +1,11 @@
 # Оглавление
 
--  [Основные возможности и используемые технологии](doc/01_technologies.md)
--  [Начало работы](doc/02_installation.md)
--  [Gulp-задачи](doc/03_tasks.md)
--  [Структура папок и файлов](doc/04_structure.md)
--  [Работа с изображениями](doc/05_images.md)
--  [Работа с шаблонизатором Pug](doc/06_pug.md)
+-  [Основные возможности и используемые технологии](documentation/01_technologies.md)
+-  [Начало работы](documentation/02_installation.md)
+-  [Gulp-задачи](documentation/03_tasks.md)
+-  [Структура папок и файлов](documentation/04_structure.md)
+-  [Работа с изображениями](documentation/05_images.md)
+-  [Работа с шаблонизатором Pug](documentation/06_pug.md)
 
 # Важная информация
 
@@ -41,7 +41,7 @@ npm start
 yarn start
 ```
 
-2. Prodocution mode
+2. Production mode
 
 ```sh
 npm build
