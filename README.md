@@ -65,17 +65,6 @@ npm zip
 yarn zip
 ```
 
-Перед тем, как вы будете делаать выгрузку вашего приложения на хостинг, убедитесь что в папке gulp/settings создан файл ftp.js, которого нет по умолчанию. Ниже приведен пример, как должен выглядеть файл ftp.js
-
-```javascript
-export const configFTP = {
-	host: '',
-	user: '',
-	password: '',
-	parallel: 10,
-};
-```
-
 4. Deploy mode
 
 ```sh
@@ -86,4 +75,15 @@ npm deploy
 
 ```sh
 yarn deploy
+```
+
+Перед тем, как вы будете делаать выгрузку вашего приложения на хостинг, убедитесь что в папке gulp/settings создан файл ftp.js, которого нет по умолчанию. Ниже приведен пример, как должен выглядеть файл ftp.js
+
+```javascript
+export const configFTP = {
+	host: '',
+	user: '',
+	password: '',
+	parallel: 10,
+};
 ```
