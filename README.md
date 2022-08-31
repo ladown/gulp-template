@@ -6,6 +6,7 @@
 -  [Структура папок и файлов](documentation/04_structure.md)
 -  [Работа с изображениями](documentation/05_images.md)
 -  [Работа с шаблонизатором Pug](documentation/06_pug.md)
+-  [Работа с иконками](documentation/07_icons.md)
 
 # Важная информация
 
