@@ -5,7 +5,7 @@
 Ввести:
 
 ```sh
-npm install yarn
+npm install
 ```
 
 или
