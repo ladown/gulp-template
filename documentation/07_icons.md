@@ -10,7 +10,7 @@
 Ladown template
 ├── dist
 │   └── icons
-│	     └── sprite.svg
+│       └── sprite.svg
 └── src
     └── icons
 ```
