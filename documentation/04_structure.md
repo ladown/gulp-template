@@ -14,17 +14,17 @@ Ladown template
 │   │   ├── app.js
 │   │   └── utils.js
 │   ├── pug
+│   │   ├── layouts
+│   │   │   ├── default.pug
+│   │   │   ├── footer.pug
+│   │   │   ├── header.pug
+│   │   │   └── modals.pug
 │   │   ├── mixins
 │   │   │   ├── bemto
 │   │   │   ├── mixin-loader.pug
 │   │   │   ├── breadcrumbs.pug
 │   │   │   ├── button.pug
 │   │   │   └── icon.pug
-│   │   ├── layouts
-│   │   │   ├── default.pug
-│   │   │   ├── footer.pug
-│   │   │   ├── header.pug
-│   │   │   └── modals.pug
 │   │   └── pages
 │   │       ├── main.pug
 │   │       └── index.pug
@@ -42,9 +42,9 @@ Ladown template
 │   │    │   ├── data.scss
 │   │    │   └── pages.scss
 │   │    ├── layouts
-│   │    ├── library
-│   │    │   ├── breakpoints.scss
-│   │    │   └── fonts-mixins.scss
+│   │    ├── library-mixins
+│   │    │   ├── breakpoints-mixin.scss
+│   │    │   └── fonts-mixin.scss
 │   │    ├── templates
 │   │    │  
 │   │    └── app.scss
