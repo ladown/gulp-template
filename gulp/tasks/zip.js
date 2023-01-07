@@ -1,5 +1,5 @@
 export const zipBuild = async () => {
-	await app.plugins.deleteSync(`${app.paths.rootFolder}.zip`);
+	await app.plugins.deleteSync(`${app.paths.projectName}-build-folder.zip`);
 
 	return app.gulp
 		.src(`${app.paths.buildFolder}/**/*.*`, { dot: true })
@@ -11,23 +11,27 @@ export const zipBuild = async () => {
 				}),
 			),
 		)
-		.pipe(app.plugins.gulpZip(`${app.paths.rootFolder}.zip`))
+		.pipe(app.plugins.gulpZip(`${app.paths.projectName}-build-folder.zip`))
 		.pipe(app.gulp.dest('./'));
 };
 
 export const zipProject = async () => {
-	await app.plugins.deleteSync(`${app.paths.rootFolder}.zip`);
+	await app.plugins.deleteSync(`${app.paths.projectName}-full-project.zip`);
 
 	return app.gulp
 		.src(
 			[
-				`${app.paths.rootFolder}/**/*.*`,
-				`!${app.paths.rootFolder}/.git/**/*.*`,
-				`!${app.paths.rootFolder}/node_modules/**/*.*`,
-				`!${app.paths.rootFolder}/.DS_Store/**/*.*`,
-				`!${app.paths.rootFolder}/.husky/_/**/*.*`,
+				'./**/*.*',
+				'!./.git',
+				'!./.git/**/*.*',
+				'!./node_modules/**/*.*',
+				'!./.DS_Store',
+				'!./.husky',
+				'!./.husky/**/*.*',
 			],
-			{ dot: true },
+			{
+				dot: true,
+			},
 		)
 		.pipe(
 			app.plugins.plumber(
@@ -37,6 +41,6 @@ export const zipProject = async () => {
 				}),
 			),
 		)
-		.pipe(app.plugins.gulpZip(`${app.paths.rootFolder}.zip`))
+		.pipe(app.plugins.gulpZip(`${app.paths.projectName}-full-project.zip`))
 		.pipe(app.gulp.dest('./'));
 };

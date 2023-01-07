@@ -1,7 +1,6 @@
 import glob from 'glob';
 import fs from 'fs';
 import { paths } from '../settings/paths.js';
-import { getProjectName } from '../settings/utils.js';
 
 export const pageList = () => {
 	const pages = glob.sync(`${paths.build.pug}**/*.html`);
@@ -32,7 +31,7 @@ export const pageList = () => {
 		)
 		.pipe(
 			app.plugins.replace(/#project-name/g, () => {
-				return getProjectName();
+				return app.paths.projectName;
 			}),
 		)
 		.pipe(app.gulp.dest(paths.build.pug));

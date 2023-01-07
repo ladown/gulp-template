@@ -1,4 +1,5 @@
 import path from 'path';
+import packageJson from '../../package.json' assert { type: 'json' };
 
 const sourcesFolder = './src';
 const buildFolder = './build';
@@ -38,6 +39,7 @@ export const paths = {
 		fonts: `${sourcesFolder}/fonts/**/*.*`,
 	},
 
+	projectName: packageJson.name,
 	rootFolder,
 	sourcesFolder,
 	buildFolder,
