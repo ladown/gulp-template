@@ -8,19 +8,28 @@
 		otf: 'opentype',
 		ttf: 'truetype',
 	);
+
 	@each $ext in $exts {
-		$extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
-		$format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
-		$src: append($src, url(quote($path + '.' + $extmod)) format(quote($format)), comma);
+		$extmod: if(map.has-key($extmods, $ext), $ext + map.get($extmods, $ext), $ext);
+		$format: if(map.has-key($formats, $ext), map.get($formats, $ext), $ext);
+		$src: list.append(
+			$src,
+			url('#{string.quote($path)}.#{string.quote($extmod)}') format(string.quote($format)),
+			comma
+		);
 	}
+
 	@font-face {
-		font-family: quote($name);
+		font-family: string.quote($name);
+
 		@if $style {
 			font-style: $style;
 		}
+
 		@if $weight {
 			font-weight: $weight;
 		}
+
 		src: $src;
 		font-display: swap;
 	}

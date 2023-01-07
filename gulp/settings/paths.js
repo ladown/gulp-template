@@ -7,9 +7,10 @@ const rootFolder = path.basename(path.resolve());
 export const paths = {
 	src: {
 		pug: `${sourcesFolder}/pug/pages/**/*.pug`,
-		styles: `${sourcesFolder}/scss/app.scss`,
+		styles: [`${sourcesFolder}/scss/vendors.scss`, `${sourcesFolder}/scss/app.scss`],
 		scripts: `${sourcesFolder}/js/app.js`,
 		imgs: `${sourcesFolder}/img/**/*.*`,
+		videos: `${sourcesFolder}/video/**/*.*`,
 		icons: `${sourcesFolder}/icons/**/*.svg`,
 		static: `${sourcesFolder}/static/**/*.*`,
 		fonts: `${sourcesFolder}/fonts/**/*.*`,
@@ -20,6 +21,7 @@ export const paths = {
 		styles: `${buildFolder}/css/`,
 		scripts: `${buildFolder}/js/`,
 		imgs: `${buildFolder}/img/`,
+		videos: `${sourcesFolder}/video/`,
 		icons: `${buildFolder}/icons/`,
 		static: `${buildFolder}/`,
 		fonts: `${buildFolder}/fonts/`,
@@ -30,6 +32,7 @@ export const paths = {
 		styles: `${sourcesFolder}/scss/**/*.*`,
 		scripts: `${sourcesFolder}/js/**/*.*`,
 		imgs: `${sourcesFolder}/img/**/*.*`,
+		videos: `${sourcesFolder}/video/**/*.*`,
 		icons: `${sourcesFolder}/icons/*.*`,
 		static: `${sourcesFolder}/static/**/*.*`,
 		fonts: `${sourcesFolder}/fonts/**/*.*`,
@@ -39,5 +42,5 @@ export const paths = {
 	sourcesFolder,
 	buildFolder,
 	clean: buildFolder,
-	ftp: '/test2.ermilovee.ru/public_html/',
+	ftp: '/',
 };

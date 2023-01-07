@@ -1,4 +1,5 @@
 {
+	"parser": "@babel/eslint-parser",
 	"root": true,
 	"env": {
 		"browser": true,
@@ -8,8 +9,11 @@
 	},
 	"extends": ["eslint:recommended", "plugin:prettier/recommended"],
 	"parserOptions": {
-		"parser": "@babel/eslint-parser",
+		"ecmaVersion": 2018,
 		"sourceType": "module",
-		"ecmaVersion": 2017
-	}
+		"babelOptions": {
+			"plugins": ["@babel/plugin-syntax-import-assertions"]
+		}
+	},
+	"plugins": ["babel", "prettier", "pug"]
 }

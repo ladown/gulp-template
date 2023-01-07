@@ -1,3 +1,8 @@
 'use strict';
 
-window.addEventListener('DOMContentLoaded', () => {});
+import AppClass from './init';
+
+window.addEventListener('DOMContentLoaded', () => {
+	const App = new AppClass();
+	App.init();
+});

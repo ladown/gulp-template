@@ -6,35 +6,35 @@
 */
 
 @mixin item-self($count, $margin: 0, $addmargin: true) {
-	@if ($margin == 0) {
+	@if $margin == 0 {
 		width: (div(100, $count) * 1%);
 	} @else {
 		width: calc(#{div(100, $count)}% - #{$margin * 2}rem);
 	}
 
-	@if ($addmargin == true) {
+	@if $addmargin == true {
 		margin: #{$margin}rem;
 	}
 }
 
 @mixin list-self($margin: 0) {
-	margin-left: -#{$margin}rem;
 	margin-right: -#{$margin}rem;
+	margin-left: -#{$margin}rem;
 }
 
 @mixin items($count, $margin: 0, $addmargin: true) {
-	@if ($addmargin == true) {
+	@if $addmargin == true {
 		margin: -#{$margin}rem;
 	}
 
 	& > * {
-		@if ($margin == 0) {
+		@if $margin == 0 {
 			width: (div(100, $count) * 1%);
 		} @else {
 			width: calc(#{div(100, $count)}% - #{$margin * 2}rem);
 		}
 
-		@if ($addmargin == true) {
+		@if $addmargin == true {
 			margin: #{$margin}rem;
 		}
 	}
@@ -53,20 +53,20 @@
 }
 
 @mixin offset($offset: 0) {
-	left: -$offset;
-	right: -$offset;
 	top: -$offset;
+	right: -$offset;
 	bottom: -$offset;
+	left: -$offset;
 	padding: $offset;
 }
 
 %fix-border-radius {
-	-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+	mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC');
 }
 
 %text-overflow {
-	text-overflow: ellipsis;
 	overflow: hidden;
+	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
@@ -80,14 +80,14 @@
 @mixin max-rows($rows, $line-height, $max-height: false, $only-height: false) {
 	line-height: #{$line-height}rem;
 
-	@if ($max-height == false) {
+	@if $max-height == false {
 		height: #{$line-height * $rows}rem;
 	} @else {
 		max-height: #{$line-height * $rows}rem;
 	}
 
-	@if ($only-height == false) {
-		display: -webkit-box;
+	@if $only-height == false {
+		display: box;
 		-webkit-line-clamp: $rows;
 		-webkit-box-orient: vertical;
 		overflow: hidden;

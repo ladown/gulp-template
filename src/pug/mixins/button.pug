@@ -1,17 +1,10 @@
-mixin button(data = {})
-	if (data.href)
-		+e.A.button.button__(href=data.href class=`${data.mods ? `_${data.mods.join(' _')}` : ''}`)&attributes(attributes)
-			if data.icon
-				+e.SPAN.icon
-					+icon(data.icon)
-			+e.SPAN.text
-				if block
-					block
-	else
-		+e.BUTTON.button.button__(class=`${data.mods ? `_${data.mods.join(' _')}` : ''}`)&attributes(attributes)
-			if data.icon
-				+e.SPAN.icon
-					+icon(data.icon)
-			+e.SPAN.text
-				if block
-					block
+mixin button(props = {})
+	+e({tag: props.href ? 'a' : 'button'}).button.button__(
+		href=props.href
+		class=`${props.modes ? `_${props.modes.join(' _')}` : ''}`)&attributes(attributes)
+		if props.icon
+			+e.SPAN.icon
+				+icon(props.icon)
+		+e.SPAN.text
+			if block
+				block

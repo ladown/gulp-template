@@ -1,0 +1,11 @@
+mixin slider(props = {})
+	+e.slider.swiper&attributes(attributes)
+		.swiper-wrapper
+			if block
+				block
+
+		if props.nav
+			+slider-nav
+
+		if props.pagination
+			+slider-pagination

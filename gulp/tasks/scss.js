@@ -15,7 +15,7 @@ export const scss = () => {
 		.pipe(
 			app.plugins.webpCss({
 				webpClass: '.webp',
-				noWebpClass: '.no-webp',
+				// noWebpClass: '.no-webp',
 			}),
 		)
 		.pipe(

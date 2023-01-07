@@ -9,5 +9,10 @@ export const vendors = () => {
 		.pipe(app.plugins.newer(app.paths.build.fonts))
 		.pipe(app.gulp.dest(app.paths.build.fonts));
 
-	return app.plugins.merge(staticFiles, fonts);
+	const videos = app.gulp
+		.src(app.paths.src.videos)
+		.pipe(app.plugins.newer(app.paths.build.videos))
+		.pipe(app.gulp.dest(app.paths.build.videos));
+
+	return app.plugins.merge(staticFiles, fonts, videos);
 };

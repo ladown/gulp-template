@@ -48,11 +48,26 @@ export const numberWithDots = (x) => {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 };
 
-export const delay = (fn, ms) => {
-	let timer = 0;
-	return function (...args) {
-		clearTimeout(timer);
-		timer = setTimeout(fn.bind(this, ...args), ms || 0);
+export const debounce = (fn, delay) => {
+	let timer = null;
+
+	return (...args) => {
+		if (timer) clearTimeout(timer);
+		timer = setTimeout(() => fn(...args), delay || 0);
+	};
+};
+
+export const throttle = (fn, delay) => {
+	let wait = false;
+
+	return (...args) => {
+		if (!wait) {
+			wait = true;
+			setTimeout(() => {
+				fn(...args);
+				wait = false;
+			}, delay);
+		}
 	};
 };
 
@@ -61,4 +76,26 @@ export const guidGenerator = () => {
 		return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 	};
 	return S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4();
+};
+
+export const isInViewport = (element) => {
+	const distance = element.getBoundingClientRect();
+
+	return (
+		distance.top >= 0 &&
+		distance.left >= 0 &&
+		distance.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+		distance.right <= (window.innerWidth || document.documentElement.clientWidth)
+	);
+};
+
+export const getElementDocumentCoords = (el) => {
+	let element = el.getBoundingClientRect();
+
+	return {
+		top: element.top + window.pageYOffset,
+		right: element.right + window.pageXOffset,
+		bottom: element.bottom + window.pageYOffset,
+		left: element.left + window.pageXOffset,
+	};
 };

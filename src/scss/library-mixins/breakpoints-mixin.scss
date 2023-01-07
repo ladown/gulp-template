@@ -1,43 +1,42 @@
-$breakpoints-values: (
-	mobile-small: 320,
-	mobile-medium: 480,
-	mobile-large: 640,
-	tablet-small: 768,
-	tablet-medium: 800,
-	tablet-large: 980,
-	desktop-small: 1024,
-	desktop-medium: 1240,
-	desktop-large: 1280,
+$breakpoints-values-variable: (
+	small-mobile: 440,
+	large-mobile: 580,
+	small-tablet: 820,
+	medium-tablet: 980,
+	large-tablet: 1120,
+	small-desktop: 1280,
+	large-desktop: 1440,
+	mackbook: 1700,
+	hd: 1920,
 ) !default;
-
 $breakpoints-ie8: false !default;
 
-@function _breakpoints-parse($string) {
-	$FROM: 'from ';
-	$TO: 'to ';
-	$string: inspect($string);
+@function breakpoints-parse($string) {
+	$from: 'from ';
+	$to: 'to ';
+	$string: meta.inspect($string);
 	$has-min: false;
 	$has-max: false;
 
-	@if type-of(str-index($string, $FROM)) == number {
+	@if type-of(string.index($string, $from)) == number {
 		$has-min: true;
 	}
 
-	@if type-of(str-index($string, $TO)) == number {
+	@if type-of(string.index($string, $to)) == number {
 		$has-max: true;
 	}
 
 	@if $has-min and $has-max {
-		$min-breakpoint: str-slice($string, str-length($FROM) + 1, str-index($string, $TO) - 2);
-		$max-breakpoint: str-slice($string, str-index($string, $TO) + str-length($TO));
+		$min-breakpoint: string.slice($string, string.length($from) + 1, string.index($string, $to) - 2);
+		$max-breakpoint: string.slice($string, string.index($string, $to) + string.length($to));
 
 		@return ($min-breakpoint, $max-breakpoint);
 	} @else if $has-min == false {
-		$max-breakpoint: str-slice($string, str-length($TO) + 1);
+		$max-breakpoint: string.slice($string, string.length($to) + 1);
 
 		@return (false, $max-breakpoint);
 	} @else if $has-max == false {
-		$min-breakpoint: str-slice($string, str-length($FROM) + 1);
+		$min-breakpoint: string.slice($string, string.length($from) + 1);
 
 		@return ($min-breakpoint, false);
 	}
@@ -45,7 +44,7 @@ $breakpoints-ie8: false !default;
 	@return (false, false);
 }
 
-@function _string-to-number($string) {
+@function string-to-number($string) {
 	$digits: '0123456789';
 	$number: 0;
 	$negative: false;
@@ -69,19 +68,19 @@ $breakpoints-ie8: false !default;
 	);
 	$unit: null;
 
-	@if str-index($string, '-') == 1 {
+	@if string.index($string, '-') == 1 {
 		$negative: true;
-		$string: str-slice($string, 2);
+		$string: string.slice($string, 2);
 	}
 
-	@for $i from 1 through str-length($string) {
-		$digit: str-slice($string, $i, $i);
-		$index: str-index($digits, $digit);
+	@for $i from 1 through string.length($string) {
+		$digit: string.slice($string, $i, $i);
+		$index: string.index($digits, $digit);
 
 		@if type-of($index) == number {
 			$number: $number * 10 + ($index - 1);
 		} @else {
-			$unit: unquote('#{$unit}#{$digit}');
+			$unit: string.unquote('#{$unit}#{$digit}');
 		}
 	}
 
@@ -90,7 +89,7 @@ $breakpoints-ie8: false !default;
 	}
 
 	@if $unit and map-has-key($units, $unit) {
-		$number: $number * map-get($units, $unit);
+		$number: $number * map.get($units, $unit);
 	}
 
 	@if $string == $unit {
@@ -100,16 +99,17 @@ $breakpoints-ie8: false !default;
 	@return $number;
 }
 
-@function _breakpoints-values($value) {
-	@if map-has-key($breakpoints-values, $value) {
-		$value: map-get($breakpoints-values, $value);
+@function breakpoints-values($value) {
+	@if map-has-key($breakpoints-values-variable, $value) {
+		$value: map.get($breakpoints-values-variable, $value);
+
 		@if unitless($value) {
 			$value: $value * 1px;
 		}
 	}
 
 	@if type-of($value) == string {
-		$value: _string-to-number($value);
+		$value: string-to-number($value);
 	}
 
 	@if type-of($value) != number {
@@ -119,7 +119,7 @@ $breakpoints-ie8: false !default;
 	@return $value;
 }
 
-@function _set-max-breakpoint($max-breakpoint) {
+@function set-max-breakpoint($max-breakpoint) {
 	@if $max-breakpoint != false {
 		@if unit($max-breakpoint) == px {
 			$max-breakpoint: $max-breakpoint;
@@ -132,12 +132,12 @@ $breakpoints-ie8: false !default;
 }
 
 @mixin breakpoint($string) {
-	$string: _breakpoints-parse($string);
-	$min-breakpoint: _breakpoints-values(nth($string, 1));
-	$max-breakpoint: _breakpoints-values(nth($string, 2));
-	$max-breakpoint: _set-max-breakpoint($max-breakpoint);
+	$string: breakpoints-parse($string);
+	$min-breakpoint: breakpoints-values(list.nth($string, 1));
+	$max-breakpoint: breakpoints-values(list.nth($string, 2));
+	$max-breakpoint: set-max-breakpoint($max-breakpoint);
 
-	@if ($min-breakpoint == false and $max-breakpoint == false) or ($max-breakpoint == false and $breakpoints-ie8) {
+	@if $min-breakpoint == false and $max-breakpoint == false or $max-breakpoint == false and $breakpoints-ie8 {
 		@content;
 	} @else if $min-breakpoint == false {
 		@media only screen and (max-width: $max-breakpoint) {

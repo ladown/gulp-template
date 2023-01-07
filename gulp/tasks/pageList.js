@@ -1,29 +1,16 @@
 import glob from 'glob';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 import { paths } from '../settings/paths.js';
-import { capitalizeFirstLetter } from '../settings/utils.js';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-const folderPath = __dirname.trim().split('/');
-const projectName = folderPath[folderPath.length - 3]
-	.replace(/-|_/gm, ' ')
-	.toLowerCase()
-	.trim()
-	.split(' ')
-	.map((el) => capitalizeFirstLetter(el))
-	.join(' ');
+import { getProjectName } from '../settings/utils.js';
 
 export const pageList = () => {
 	const pages = glob.sync(`${paths.build.pug}**/*.html`);
-	let pageList = '<ol>';
+	let pageList = '<ol class="page-list__items">';
 
 	return app.gulp
-		.src(`${paths.build.pug}index.html`)
+		.src(`${paths.build.pug}page-list.html`)
 		.pipe(
-			app.plugins.replace(/<div id="update-this"><\/div>/g, () => {
+			app.plugins.replace(/<div id="page-list"><\/div>/g, () => {
 				pages.map((file) => {
 					const fileHref = file.replace('build/', '');
 
@@ -34,8 +21,8 @@ export const pageList = () => {
 						.toString()
 						.replace(/<\/?\w+((\s+\w+(\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)\/?>/g, '');
 
-					if (fileHref.indexOf('index.html') === -1)
-						pageList += `<li><a href="${fileHref}" target="_blank">${fileName}</a></li>`;
+					if (fileHref.indexOf('page-list.html') === -1)
+						pageList += `<li class="page-list__item"><a href="${fileHref}" class="page-list__link" target="_blank">${fileName}</a></li>`;
 				});
 
 				pageList += '</ol>';
@@ -44,8 +31,8 @@ export const pageList = () => {
 			}),
 		)
 		.pipe(
-			app.plugins.replace(/#project/g, () => {
-				return projectName;
+			app.plugins.replace(/#project-name/g, () => {
+				return getProjectName();
 			}),
 		)
 		.pipe(app.gulp.dest(paths.build.pug));

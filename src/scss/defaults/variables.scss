@@ -1,0 +1,16 @@
+:root {
+	--wrapper-offset: 100rem;
+	--wrapper-size: 1920rem;
+
+	@include to(1120px) {
+		--wrapper-offset: 40px;
+	}
+
+	@include to(580px) {
+		--wrapper-offset: 20px;
+	}
+}
+
+$color: #000;
+$default-transition-duration: 0.2s;
+$default-transition-function: linear;
