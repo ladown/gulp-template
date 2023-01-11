@@ -1914,6 +1914,11 @@ async@^3.2.3, async@^3.2.4:
   resolved "https://registry.yarnpkg.com/async/-/async-3.2.4.tgz#2d22e00f8cddeb5fde5dd33522b56d1cf569a81c"
   integrity sha512-iAB+JbDEGXhyIUavoDl9WP/Jj106Kz9DEn1DPgYw5ruDn0e3Wgi3sKFm55sASdGBNOQB8F59d9qQ7deqrHA8wQ==
 
+async@~0.9.0:
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/async/-/async-0.9.2.tgz#aea74d5e61c1f899613bf64bda66d4c78f2fd17d"
+  integrity sha512-l6ToIJIotphWahxxHyzK9bnLR6kM4jJIIgLShZeqLY7iboHoGkdgFl7W2/Ivi4SkMJYGKqW8vSuk0uKUj6qsSw==
+
 atob@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
@@ -4484,6 +4489,13 @@ fs-mkdirp-stream@^1.0.0:
     graceful-fs "^4.1.11"
     through2 "^2.0.3"
 
+fs-path@^0.0.24:
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/fs-path/-/fs-path-0.0.24.tgz#21a4b8d7dce5bae6d208261955dbc2bcf1e75c06"
+  integrity sha512-kKxBYWJVCidJpBkp2pj9yn9myAoe+fwk/w8PfZQS4RfjB0oY9pkD4MQQQBq/NQib6Yq9EhGZgzUv/NORK/k+5A==
+  dependencies:
+    async "~0.9.0"
+
 fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
@@ -5129,13 +5141,13 @@ gulp-util@^3.0.8:
     through2 "^2.0.0"
     vinyl "^0.5.0"
 
-gulp-webp-html-nosvg@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/gulp-webp-html-nosvg/-/gulp-webp-html-nosvg-1.1.1.tgz#f80d3819061db67c5028b6a149bff18712dfc8c0"
-  integrity sha512-u0twHYU8OppUysPyl55XB4OVBdc/6OqXpPKsea3mdcdm5igv9FKyN91eL7db7OPxpK516sdH1sSr9ZZBoEVWvw==
+gulp-version-number@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/gulp-version-number/-/gulp-version-number-0.2.4.tgz#ab8c100b6a8fbce8ab3e0fd7993510decac6405e"
+  integrity sha512-ssGbyFFdIufR0TpSE35LSb2B1rAEzJR9pdjI0rMiuK78C3KN4TA1YsphsKj69dEBvdsXloa/0NaSCqeqHkPZHA==
   dependencies:
-    gulp-util "^3.0.8"
-    through2 "^3.0.1"
+    fs-path "^0.0.24"
+    map-stream "^0.0.7"
 
 gulp-webp@^4.0.1:
   version "4.0.1"
@@ -6785,7 +6797,7 @@ map-obj@^4.0.0:
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-4.3.0.tgz#9304f906e93faae70880da102a9f1df0ea8bb05a"
   integrity sha512-hdN1wVrZbb29eBGiGjJbeP8JbKjq1urkHJ/LIP/NY48MZ1QVXUsQBV1G1zvYFHn1XE06cwjBsOI2K3Ulnj1YXQ==
 
-map-stream@~0.0.3:
+map-stream@^0.0.7, map-stream@~0.0.3:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/map-stream/-/map-stream-0.0.7.tgz#8a1f07896d82b10926bd3744a2420009f88974a8"
   integrity sha512-C0X0KQmGm3N2ftbTGBhSyuydQ+vV1LC3f3zPvT3RXHXNZrvfPZcoXp/N5DOa8vedX/rTMm2CjTtivFg2STJMRQ==
