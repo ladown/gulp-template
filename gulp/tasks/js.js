@@ -1,6 +1,6 @@
 export const js = () => {
 	return app.gulp
-		.src(app.paths.src.scripts, { sourcemaps: app.isDev })
+		.src(app.paths.src.scripts)
 		.pipe(
 			app.plugins.plumber(
 				app.plugins.notify.onError({
@@ -13,6 +13,8 @@ export const js = () => {
 			app.plugins.webpack({
 				mode: app.isBuild ? 'production' : 'development',
 
+				devtool: app.isBuild ? false : 'eval-cheap-source-map',
+
 				target: 'web',
 
 				output: {
@@ -24,9 +26,7 @@ export const js = () => {
 						{
 							test: /\.(js)$/,
 							exclude: /(node_modules|bower_components)/,
-							use: {
-								loader: 'babel-loader',
-							},
+							use: 'babel-loader',
 							resolve: {
 								fullySpecified: false,
 							},
@@ -34,7 +34,12 @@ export const js = () => {
 
 						{
 							test: /\.(c|sa|sc)ss$/i,
-							use: ['style-loader', 'css-loader', 'sass-loader'],
+							use: [
+								app.plugins.MiniCssExtractPlugin.loader,
+								'css-loader',
+								'postcss-loader',
+								'sass-loader',
+							],
 						},
 					],
 				},

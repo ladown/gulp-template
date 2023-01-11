@@ -1,4 +1,4 @@
-export const server = (done) => {
+export const server = () => {
 	app.plugins.browserSync.init({
 		startPath: '/page-list.html',
 		server: {

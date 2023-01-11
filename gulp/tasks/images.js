@@ -21,14 +21,7 @@ export const images = () => {
 					app.plugins.jpegtran({ quality: 'hight', progressive: true }),
 					app.plugins.optipng({ optimizationLevel: 5, quality: [0.7, 1] }),
 					app.plugins.svgo({
-						plugins: [
-							{
-								name: 'preset-default',
-								params: {
-									overrides: { removeViewBox: false },
-								},
-							},
-						],
+						plugins: ['preset-default'],
 					}),
 				]),
 			),

@@ -9,6 +9,7 @@ class AppClass {
 		Sliders();
 
 		console.log('App has been initialized');
+		return this;
 	}
 }
 

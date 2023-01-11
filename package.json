@@ -87,6 +87,7 @@
 		"imagemin-optipng": "^8.0.0",
 		"imagemin-svgo": "^10.0.1",
 		"merge-stream": "^2.0.0",
+		"mini-css-extract-plugin": "^2.7.2",
 		"postcss": "^8.4.21",
 		"postcss-merge-longhand": "^5.1.7",
 		"postcss-preset-env": "^7.8.3",

@@ -33,6 +33,7 @@ import gulpWebpHtmlNosvg from 'gulp-webp-html-nosvg';
 import webpCss from 'gulp-webpcss';
 import webp from 'gulp-webp';
 import merge from 'merge-stream';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const sass = gulpSass(dartSass);
 
@@ -52,13 +53,7 @@ export const plugins = {
 	cleanCss,
 	postcss,
 	postcssSortMediaQueries,
-	postcssPlugins: [
-		// postcssSortMediaQueries({
-		// 	sort: 'desktop-first',
-		// }),
-		postcssPresetEnv,
-		postcssMergeLonghand,
-	],
+	postcssPlugins: [postcssPresetEnv, postcssMergeLonghand],
 	webpack,
 	imagemin,
 	gifsicle,
@@ -76,4 +71,5 @@ export const plugins = {
 	webpCss,
 	webp,
 	merge,
+	MiniCssExtractPlugin,
 };
