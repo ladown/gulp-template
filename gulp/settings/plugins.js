@@ -28,12 +28,11 @@ import svgSprite from 'gulp-svg-sprite';
 import ifPlugin from 'gulp-if';
 import gulpZip from 'gulp-zip';
 import vinylFTP from 'vinyl-ftp';
-import util from 'gulp-util';
 import webpCss from 'gulp-webpcss';
 import webp from 'gulp-webp';
 import merge from 'merge-stream';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import versionNumber from 'gulp-version-number';
+import log from 'fancy-log';
 
 const sass = gulpSass(dartSass);
 
@@ -66,10 +65,9 @@ export const plugins = {
 	ifPlugin,
 	gulpZip,
 	vinylFTP,
-	util,
 	webpCss,
 	webp,
 	merge,
 	MiniCssExtractPlugin,
-	versionNumber,
+	log,
 };

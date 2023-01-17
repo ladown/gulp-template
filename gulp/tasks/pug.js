@@ -1,104 +1,76 @@
-import fs from 'fs';
+import { App } from '../../gulpfile.js';
 
 export const pug = () => {
 	return (
-		app.gulp
-			.src(app.paths.src.pug)
-			.pipe(app.plugins.newer(`${app.paths.buildFolder}/*.html`))
+		App.gulp
+			.src(App.paths.src.pug)
 			.pipe(
-				app.plugins.plumber(
-					app.plugins.notify.onError({
+				App.plugins.newer({
+					dest: `${App.paths.buildFolder}/*.html`,
+					extra: `${App.paths.sourcesFolder}/pug/{layouts,mixin}/*.pug`,
+				}),
+			)
+			.pipe(
+				App.plugins.plumber(
+					App.plugins.notify.onError({
 						title: 'PUG',
 						message: 'Error: <%= error.message %>',
 					}),
 				),
 			)
 			.pipe(
-				app.plugins.pug({
+				App.plugins.pug({
 					pretty: false,
 				}),
 			)
 			.pipe(
-				app.plugins.ifPlugin(
-					app.isBuild,
-					app.plugins.versionNumber({
-						value: '%DT%',
-						append: {
-							key: '_v',
-							cover: 0,
-							to: ['css', 'js'],
-						},
-					}),
-				),
-			)
-			.pipe(
-				app.plugins.replace(/<img.*?src="(.*?)".*?(>)/g, (match) => {
+				App.plugins.replace(/<img.*?src="(.*?)".*?(>)/g, (match) => {
 					var attrs = match.replace(/(<img |<img|>|\/>)/g, '');
-					var src,
-						webpSrc,
-						subAttr = [],
-						mediaResponsive = '',
-						template;
+					if (!attrs.includes('svg')) {
+						var src,
+							webpSrc,
+							subAttr = [],
+							mediaResponsive = '',
+							template;
 
-					attrs.match(/(\S+)=(["']?)([^\\\2]*?(?:\\[^\2].*?)*)(\2|$|>)/g).forEach((element) => {
-						if (element.indexOf('src') !== -1) {
-							src = element.match(/("|')(.*?)("|').*?/g).toString();
-							webpSrc = src.replace(/(gif|jpg|jpeg|tiff|png)/g, 'webp');
-						} else if (element.indexOf('responsive') !== -1) {
-							const value = element.match(/(["'])(?:(?=(\\?))\2.)*?\1/g).toString();
+						attrs.match(/(\S+)=(["']?)([^\\\2]*?(?:\\[^\2].*?)*)(\2|$|>)/g).forEach((element) => {
+							if (element.indexOf('src') !== -1) {
+								src = element.match(/("|')(.*?)("|').*?/g).toString();
+								webpSrc = src.replace(/(gif|jpg|jpeg|tiff|png)/g, 'webp');
+							} else if (element.indexOf('responsive') !== -1) {
+								const value = element.match(/(["'])(?:(?=(\\?))\2.)*?\1/g).toString();
 
-							if (value && value !== '' && value !== '""') {
-								const responsive = value.replace(/["']/g, '').replace(/ /g, '');
-								const points = responsive.split(',');
+								if (value && value !== '' && value !== '""') {
+									const responsive = value.replace(/["']/g, '').replace(/ /g, '');
+									const points = responsive.split(',');
 
-								points.forEach((size) => {
-									const sizeData = size.split(':');
+									points.forEach((size) => {
+										const sizeData = size.split(':');
 
-									const webpMediaUrl = sizeData[1].replace(/(gif|jpg|jpeg|tiff|png)/g, 'webp');
+										const webpMediaUrl = sizeData[1].replace(/(gif|jpg|jpeg|tiff|png)/g, 'webp');
 
-									mediaResponsive += `<source media="(max-width: ${sizeData[0]}px)" type="image/webp" srcset="${webpMediaUrl}"><source media="(max-width: ${sizeData[0]}px)" srcset="${sizeData[1]}">`;
-								});
+										mediaResponsive += `<source media="(max-width: ${sizeData[0]}px)" type="image/webp" srcset="${webpMediaUrl}"><source media="(max-width: ${sizeData[0]}px)" srcset="${sizeData[1]}">`;
+									});
+								}
+							} else {
+								subAttr.push(element.trim());
 							}
-						} else {
-							subAttr.push(element.trim());
-						}
-					});
+						});
 
-					template = `<picture>
+						template = `<picture>
 								${mediaResponsive}
-								<source srcset=${webpSrc} type="image/webp">
+								<source type="image/webp" srcset=${webpSrc}>
 								<img src=${src} ${subAttr.join(' ')} />
 							</picture>`;
 
-					if (!webpSrc.includes('svg')) return template;
-					else return match;
-				}),
-			)
-			.pipe(
-				app.plugins.replace(/<svg.*?(>)/g, (match) => {
-					let viewport = match.match(/viewBox=\"([^']*?)\"/g).toString();
-
-					if (viewport !== 'viewBox=""') {
+						return template;
+					} else {
 						return match;
 					}
-
-					const name = match
-						.match(/\bicon-[a-zA-Z]*\b/g)
-						.toString()
-						.replace('icon-', '');
-
-					viewport = fs
-						.readFileSync(`src/icons/${name}.svg`, 'utf8')
-						.match(/viewBox=\"([^']*?)\"/g)
-						.toString();
-
-					const changed = match.replace(/viewBox=\"([^']*?)\"/g, viewport);
-
-					return changed;
 				}),
 			)
 			.pipe(
-				app.plugins.replace(
+				App.plugins.replace(
 					/(?:^|[^а-яёА-ЯЁ0-9_])(в|без|а|до|из|к|я|на|по|о|от|перед|при|через|с|у|за|над|об|под|про|для|и|или|со|около|между)(?:^|[^а-яёА-ЯЁ0-9_])/g,
 					(match) => {
 						const newText = match.slice(-1) == ' ' ? match.substr(0, match.length - 1) + '&nbsp;' : match;
@@ -107,10 +79,10 @@ export const pug = () => {
 					},
 				),
 			)
-			// .pipe(app.plugins.ifPlugin(app.isBuild, app.plugins.htmlPrettify({ indent_char: '	', indent_size: 2 })))
-			.pipe(app.gulp.dest(`${app.paths.buildFolder}/`))
+			// .pipe(App.plugins.ifPlugin(App.isBuild, App.plugins.htmlPrettify({ indent_char: '	', indent_size: 2 })))
+			.pipe(App.gulp.dest(`${App.paths.buildFolder}/`))
 			.pipe(
-				app.plugins.browserSync.reload({
+				App.plugins.browserSync.reload({
 					stream: true,
 				}),
 			)

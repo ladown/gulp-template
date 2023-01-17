@@ -58,11 +58,11 @@ html(class=html.classList)&attributes(html.attrs)
 		block pre-style
 
 		link(
-			href='css/vendors.css'
+			href=`css/vendors.css?v=${Date.now()}`
 			rel='stylesheet')
 
 		link(
-			href='css/app.css'
+			href=`css/app.css?v=${Date.now()}`
 			rel='stylesheet')
 
 		block post-style
@@ -87,7 +87,7 @@ html(class=html.classList)&attributes(html.attrs)
 
 		block pre-script
 
-		script(src='js/app.js')
+		script(src=`js/app.js?v=${Date.now()}`)
 
 		block post-script
 

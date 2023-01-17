@@ -1,17 +1,21 @@
+import { App } from '../../gulpfile.js';
+
 export const deploy = () => {
-	app.configFTP.log = app.plugins.util.log;
+	const ftpConnect = App.plugins.vinylFTP.create(App.configFTP);
 
-	const ftpConnect = app.plugins.vinylFTP.create(app.configFTP);
-
-	return app.gulp
-		.src(`${app.paths.buildFolder}/**/*.*`, { dot: true })
-		.pipe(
-			app.plugins.plumber(
-				app.plugins.notify.onError({
-					title: 'FTP',
-					message: 'Error: <%= error.message %>',
-				}),
-			),
-		)
-		.pipe(ftpConnect.dest(`/${app.paths.ftp}/${app.paths.rootFolder}`));
+	return (
+		App.gulp
+			.src(`${App.paths.buildFolder}/**/*.*`, { dot: true })
+			.pipe(
+				App.plugins.plumber(
+					App.plugins.notify.onError({
+						title: 'FTP',
+						message: 'Error: <%= error.message %>',
+					}),
+				),
+			)
+			// .pipe(ftpConnect.clean(`${App.paths.ftp}/**`, '/'))
+			// .pipe(ftpConnect.clean(`${App.paths.ftp}/**`, '.', { base: App.paths.ftp }))
+			.pipe(ftpConnect.dest(App.paths.ftp))
+	);
 };

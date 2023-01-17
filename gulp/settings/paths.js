@@ -34,7 +34,7 @@ export const paths = {
 		scripts: `${sourcesFolder}/js/**/*.*`,
 		imgs: `${sourcesFolder}/img/**/*.*`,
 		videos: `${sourcesFolder}/video/**/*.*`,
-		icons: `${sourcesFolder}/icons/*.*`,
+		icons: `${sourcesFolder}/icons/**/*.*`,
 		static: `${sourcesFolder}/static/**/*.*`,
 		fonts: `${sourcesFolder}/fonts/**/*.*`,
 	},
@@ -44,5 +44,5 @@ export const paths = {
 	sourcesFolder,
 	buildFolder,
 	clean: buildFolder,
-	ftp: '/',
+	ftp: '/test2.ermilovee.ru/public_html/',
 };

@@ -1,23 +1,25 @@
+import { App } from '../../gulpfile.js';
+
 export const icons = () => {
-	return app.gulp
-		.src(app.paths.src.icons)
+	return App.gulp
+		.src(App.paths.src.icons)
 		.pipe(
-			app.plugins.plumber(
-				app.plugins.notify.onError({
+			App.plugins.plumber(
+				App.plugins.notify.onError({
 					title: 'ICONS',
 					message: 'Error: <%= error.message %>',
 				}),
 			),
 		)
 		.pipe(
-			app.plugins.svgMin({
+			App.plugins.svgMin({
 				js2svg: {
 					pretty: true,
 				},
 			}),
 		)
 		.pipe(
-			app.plugins.cheerio({
+			App.plugins.cheerio({
 				run: ($) => {
 					$('[fill]:not(.dont-remove)').removeAttr('fill');
 					$('[stroke]:not(.dont-remove)').removeAttr('stroke');
@@ -26,9 +28,9 @@ export const icons = () => {
 				parserOptions: { xmlMode: true },
 			}),
 		)
-		.pipe(app.plugins.replace('&gt;', '>'))
+		.pipe(App.plugins.replace('&gt;', '>'))
 		.pipe(
-			app.plugins.svgSprite({
+			App.plugins.svgSprite({
 				mode: {
 					symbol: {
 						sprite: '../sprite.svg',
@@ -36,9 +38,9 @@ export const icons = () => {
 				},
 			}),
 		)
-		.pipe(app.gulp.dest(app.paths.build.icons))
+		.pipe(App.gulp.dest(App.paths.build.icons))
 		.pipe(
-			app.plugins.browserSync.reload({
+			App.plugins.browserSync.reload({
 				stream: true,
 			}),
 		);

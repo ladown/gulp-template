@@ -1,18 +1,20 @@
+import { App } from '../../gulpfile.js';
+
 export const vendors = () => {
-	const staticFiles = app.gulp
-		.src(app.paths.src.static, { dot: true })
-		.pipe(app.plugins.newer(app.paths.build.static))
-		.pipe(app.gulp.dest(app.paths.build.static));
+	const staticFiles = App.gulp
+		.src(App.paths.src.static, { dot: true })
+		.pipe(App.plugins.newer(App.paths.build.static))
+		.pipe(App.gulp.dest(App.paths.build.static));
 
-	const fonts = app.gulp
-		.src(app.paths.src.fonts)
-		.pipe(app.plugins.newer(app.paths.build.fonts))
-		.pipe(app.gulp.dest(app.paths.build.fonts));
+	const fonts = App.gulp
+		.src(App.paths.src.fonts)
+		.pipe(App.plugins.newer(App.paths.build.fonts))
+		.pipe(App.gulp.dest(App.paths.build.fonts));
 
-	const videos = app.gulp
-		.src(app.paths.src.videos)
-		.pipe(app.plugins.newer(app.paths.build.videos))
-		.pipe(app.gulp.dest(app.paths.build.videos));
+	const videos = App.gulp
+		.src(App.paths.src.videos)
+		.pipe(App.plugins.newer(App.paths.build.videos))
+		.pipe(App.gulp.dest(App.paths.build.videos));
 
-	return app.plugins.merge(staticFiles, fonts, videos);
+	return App.plugins.merge(staticFiles, fonts, videos);
 };

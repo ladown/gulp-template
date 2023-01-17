@@ -1,35 +1,36 @@
+import { App } from '../../gulpfile.js';
+
 export const scss = () => {
-	return app.gulp
-		.src(app.paths.src.styles, { sourcemaps: app.isDev })
-		.pipe(app.plugins.sassGlob())
+	return App.gulp
+		.src(App.paths.src.styles, { sourcemaps: App.isDev })
+		.pipe(App.plugins.sassGlob())
 		.pipe(
-			app.plugins.plumber(
-				app.plugins.notify.onError({
+			App.plugins.plumber(
+				App.plugins.notify.onError({
 					title: 'SCSS',
 					message: 'Error: <%= error.message %>',
 				}),
 			),
 		)
-		.pipe(app.plugins.sass())
-		.pipe(app.plugins.ifPlugin(app.isBuild, app.plugins.autoprefixer({ grid: true, cascade: true })))
+		.pipe(App.plugins.sass())
+		.pipe(App.plugins.ifPlugin(App.isBuild, App.plugins.autoprefixer({ grid: true, cascade: true })))
 		.pipe(
-			app.plugins.webpCss({
+			App.plugins.webpCss({
 				webpClass: '.webp',
-				// noWebpClass: '.no-webp',
 			}),
 		)
 		.pipe(
-			app.plugins.postcss([
-				app.plugins.postcssSortMediaQueries({
+			App.plugins.postcss([
+				App.plugins.postcssSortMediaQueries({
 					sort: 'desktop-first',
 				}),
 			]),
 		)
-		.pipe(app.plugins.ifPlugin(app.isBuild, app.plugins.postcss(app.plugins.postcssPlugins)))
-		.pipe(app.plugins.ifPlugin(app.isBuild, app.plugins.cleanCss()))
-		.pipe(app.gulp.dest(app.paths.build.styles))
+		.pipe(App.plugins.ifPlugin(App.isBuild, App.plugins.postcss(App.plugins.postcssPlugins)))
+		.pipe(App.plugins.ifPlugin(App.isBuild, App.plugins.cleanCss()))
+		.pipe(App.gulp.dest(App.paths.build.styles))
 		.pipe(
-			app.plugins.browserSync.reload({
+			App.plugins.browserSync.reload({
 				stream: true,
 			}),
 		);

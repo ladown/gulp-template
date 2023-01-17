@@ -11,12 +11,13 @@ import { icons } from './gulp/tasks/icons.js';
 import { zipBuild, zipProject } from './gulp/tasks/zip.js';
 import { deploy } from './gulp/tasks/deploy.js';
 import { vendors } from './gulp/tasks/vendors.js';
+import { ftpClean } from './gulp/tasks/ftpClean.js';
 
 import { paths } from './gulp/settings/paths.js';
 import { plugins } from './gulp/settings/plugins.js';
 import { configFTP } from './gulp/settings/ftp.js';
 
-global.app = {
+const App = {
 	isBuild: process.argv.includes('--build'),
 	isDev: !process.argv.includes('--build'),
 	paths,
@@ -40,10 +41,12 @@ const devMode = gulp.series(clean, mainTasks, gulp.parallel(watcher, server));
 const buildMode = gulp.series(clean, mainTasks);
 const zipBuildMode = gulp.series(buildMode, zipBuild);
 const zipProjectMode = gulp.series(buildMode, zipProject);
-const deployMode = gulp.series(buildMode, deploy);
+const deployMode = gulp.series(buildMode, ftpClean, deploy);
 
 gulp.task('default', devMode);
 gulp.task('build', buildMode);
 gulp.task('zipBuild', zipBuildMode);
 gulp.task('zipProject', zipProjectMode);
 gulp.task('deploy', deployMode);
+
+export { App };

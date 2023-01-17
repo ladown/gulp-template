@@ -1,17 +1,20 @@
 import glob from 'glob';
 import fs from 'fs';
 import { paths } from '../settings/paths.js';
+import { App } from '../../gulpfile.js';
 
 export const pageList = () => {
 	const pages = glob.sync(`${paths.build.pug}**/*.html`);
 	let pageList = '<ol class="page-list__items">';
 
-	return app.gulp
+	return App.gulp
 		.src(`${paths.build.pug}page-list.html`)
 		.pipe(
-			app.plugins.replace(/<div id="page-list"><\/div>/g, () => {
+			App.plugins.replace(/<div id="page-list"><\/div>/g, () => {
 				pages.map((file) => {
-					const fileHref = file.replace('build/', '');
+					const fileHref = file.includes('index')
+						? file.replace('./build/index.html', '/')
+						: file.replace('build/', '');
 
 					const content = fs.readFileSync(file, 'utf8');
 
@@ -30,9 +33,9 @@ export const pageList = () => {
 			}),
 		)
 		.pipe(
-			app.plugins.replace(/#project-name/g, () => {
-				return app.paths.projectName;
+			App.plugins.replace(/#project-name/g, () => {
+				return App.paths.projectName;
 			}),
 		)
-		.pipe(app.gulp.dest(paths.build.pug));
+		.pipe(App.gulp.dest(paths.build.pug));
 };

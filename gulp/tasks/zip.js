@@ -1,24 +1,26 @@
-export const zipBuild = async () => {
-	await app.plugins.deleteSync(`${app.paths.projectName}-build-folder.zip`);
+import { App } from '../../gulpfile.js';
 
-	return app.gulp
-		.src(`${app.paths.buildFolder}/**/*.*`, { dot: true })
+export const zipBuild = async () => {
+	await App.plugins.deleteSync(`${App.paths.projectName}-build-folder.zip`);
+
+	return App.gulp
+		.src(`${App.paths.buildFolder}/**/*.*`, { dot: true })
 		.pipe(
-			app.plugins.plumber(
-				app.plugins.notify.onError({
+			App.plugins.plumber(
+				App.plugins.notify.onError({
 					title: 'ZIP',
 					message: 'Error: <%= error.message %>',
 				}),
 			),
 		)
-		.pipe(app.plugins.gulpZip(`${app.paths.projectName}-build-folder.zip`))
-		.pipe(app.gulp.dest('./'));
+		.pipe(App.plugins.gulpZip(`${App.paths.projectName}-build-folder.zip`))
+		.pipe(App.gulp.dest('./'));
 };
 
 export const zipProject = async () => {
-	await app.plugins.deleteSync(`${app.paths.projectName}-full-project.zip`);
+	await App.plugins.deleteSync(`${App.paths.projectName}-full-project.zip`);
 
-	return app.gulp
+	return App.gulp
 		.src(
 			[
 				'./**/*.*',
@@ -34,13 +36,13 @@ export const zipProject = async () => {
 			},
 		)
 		.pipe(
-			app.plugins.plumber(
-				app.plugins.notify.onError({
+			App.plugins.plumber(
+				App.plugins.notify.onError({
 					title: 'ZIP',
 					message: 'Error: <%= error.message %>',
 				}),
 			),
 		)
-		.pipe(app.plugins.gulpZip(`${app.paths.projectName}-full-project.zip`))
-		.pipe(app.gulp.dest('./'));
+		.pipe(App.plugins.gulpZip(`${App.paths.projectName}-full-project.zip`))
+		.pipe(App.gulp.dest('./'));
 };

@@ -1,8 +1,10 @@
+import { App } from '../../gulpfile.js';
+
 export const server = () => {
-	app.plugins.browserSync.init({
+	App.plugins.browserSync.init({
 		startPath: '/page-list.html',
 		server: {
-			baseDir: app.paths.build.pug,
+			baseDir: App.paths.build.pug,
 		},
 		notify: false,
 	});

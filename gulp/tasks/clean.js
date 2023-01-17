@@ -1,3 +1,5 @@
+import { App } from '../../gulpfile.js';
+
 export const clean = async () => {
-	return await app.plugins.deleteSync(app.paths.clean);
+	return await App.plugins.deleteSync(App.paths.clean);
 };

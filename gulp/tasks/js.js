@@ -1,19 +1,21 @@
+import { App } from '../../gulpfile.js';
+
 export const js = () => {
-	return app.gulp
-		.src(app.paths.src.scripts)
+	return App.gulp
+		.src(App.paths.src.scripts)
 		.pipe(
-			app.plugins.plumber(
-				app.plugins.notify.onError({
+			App.plugins.plumber(
+				App.plugins.notify.onError({
 					title: 'JS',
 					message: 'Error: <%= error.message %>',
 				}),
 			),
 		)
 		.pipe(
-			app.plugins.webpack({
-				mode: app.isBuild ? 'production' : 'development',
+			App.plugins.webpack({
+				mode: App.isBuild ? 'production' : 'development',
 
-				devtool: app.isBuild ? false : 'eval-cheap-source-map',
+				devtool: App.isBuild ? false : 'eval-cheap-source-map',
 
 				target: 'web',
 
@@ -35,7 +37,7 @@ export const js = () => {
 						{
 							test: /\.(c|sa|sc)ss$/i,
 							use: [
-								app.plugins.MiniCssExtractPlugin.loader,
+								App.plugins.MiniCssExtractPlugin.loader,
 								'css-loader',
 								'postcss-loader',
 								'sass-loader',
@@ -49,9 +51,9 @@ export const js = () => {
 				},
 			}),
 		)
-		.pipe(app.gulp.dest(app.paths.build.scripts))
+		.pipe(App.gulp.dest(App.paths.build.scripts))
 		.pipe(
-			app.plugins.browserSync.reload({
+			App.plugins.browserSync.reload({
 				stream: true,
 			}),
 		);
