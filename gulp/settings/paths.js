@@ -44,5 +44,5 @@ export const paths = {
 	sourcesFolder,
 	buildFolder,
 	clean: buildFolder,
-	ftp: '/test2.ermilovee.ru/public_html/',
+	ftp: '',
 };
