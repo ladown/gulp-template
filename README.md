@@ -84,9 +84,9 @@ yarn deploy
 import log from 'fancy-log';
 
 export const configFTP = {
-	host: '31.31.196.104',
-	user: 'u0760560_egor',
-	password: 'cC8mP1hQ1zxE3b',
+	host: '',
+	user: '',
+	password: '',
 	parallel: 10,
 	log,
 };
